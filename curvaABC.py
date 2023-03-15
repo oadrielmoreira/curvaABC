@@ -129,3 +129,58 @@ plt.xlabel('Classificações')
 plt.ylabel('Total de Produtos Vendidos')
 
 plt.show()
+
+
+
+#Criando Gráfico de Linhas do comportamento dos meses analisados dos produtos A
+dados = curvaABC.iloc[:, -17:-5]
+dados_A = dados[curvaABC['Curva'] == 'A']
+
+fig = plt.figure(figsize=(12, 6))
+plt.plot(dados_A.T)
+
+plt.grid(axis='y')
+plt.ylim(0, 3000)
+
+    
+plt.title('Dados dos Produtos Classificados como A')
+plt.xlabel('Mês')
+plt.ylabel('Quantidade')
+plt.show()
+
+
+#Criando Gráfico de Linhas do comportamento dos meses analisados dos produtos B
+
+dados = curvaABC.iloc[:, -17:-5]
+dados_B = dados[curvaABC['Curva'] == 'B']
+
+fig = plt.figure(figsize=(12, 6))
+plt.plot(dados_B.T)
+
+plt.grid(axis='y')
+plt.ylim(0, 3000)
+
+    
+plt.title('Dados dos Produtos Classificados como B')
+plt.xlabel('Mês')
+plt.ylabel('Quantidade')
+plt.show()
+
+
+
+#Criando Gráfico de Linhas do comportamento dos meses analisados dos produtos C
+
+dados = curvaABC.iloc[:, -17:-5]
+dados_C = dados[curvaABC['Curva'] == 'C']
+
+fig = plt.figure(figsize=(12, 6))
+plt.plot(dados_C.T)
+
+plt.grid(axis='y')
+plt.ylim(0, 3000)
+
+    
+plt.title('Dados dos Produtos Classificados como C')
+plt.xlabel('Mês')
+plt.ylabel('Quantidade')
+plt.show()
