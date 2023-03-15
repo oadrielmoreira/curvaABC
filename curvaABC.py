@@ -76,5 +76,56 @@ def classificar(valor):
 curvaABC['Curva'] = curvaABC['Percentual Acumulado'].apply(classificar)
 
 
-
+#Exportando Planilha com classificação ABC
 curvaABC.to_excel('Curva ABC.xlsx', index = False)
+
+
+
+
+#Criando tabela de frequência e gráfico representando a quantidade de produtos por classificação
+
+tabfre = curvaABC['Curva'].value_counts()
+tabfre = pd.DataFrame({'Curva': tabfre.index, 'Frequências': tabfre.values})
+tabfre['Percentual'] = tabfre['Frequências'] / tabfre['Frequências'].sum() *100
+tabfre = tabfre.iloc[::-1].reset_index(drop=True)
+
+clf = tabfre['Curva']
+freq = tabfre['Frequências']
+
+cores = ['#00a60b', '#f7d200', '#828282']
+plt.bar(clf, freq, color=cores)
+
+for i, (v1, v2) in enumerate(zip(tabfre['Frequências'], tabfre['Percentual'])):
+    plt.text(i, v1+1, 'Total: ' + f'{v1}\n Percentual: {v2:.1f}%\n', ha='center')
+    
+plt.ylim([0, max(tabfre['Frequências']) * 1.2])
+
+
+
+plt.title('Quantidade de produtos por classificação')
+plt.xlabel('Curva')
+plt.ylabel('Quantidade')
+
+
+
+#Criando dataframe de quantidade de produtos vendidos por classificação e criando gráfico de barras que indica a quantidade de produtos vendidos por classificação
+
+df_soma = curvaABC.groupby('Curva')['Total'].sum().reset_index()
+df_soma['Percentual'] = df_soma['Total'] / df_soma['Total'].sum() *100
+
+clf = df_soma['Curva']
+freq = df_soma['Total']
+
+plt.bar(df_soma['Curva'], df_soma['Total'], color=cores)
+
+for i, (v1, v2) in enumerate(zip(df_soma['Total'], df_soma['Percentual'])):
+    plt.text(i, v1+1, 'Total: ' f'{v1}\n Percentual: {v2:.1f}%\n', ha='center')
+
+plt.ylim([0, max(df_soma['Total']) * 1.2])
+
+
+plt.title('Total de Produtos Vendidos por Classificação')
+plt.xlabel('Classificações')
+plt.ylabel('Total de Produtos Vendidos')
+
+plt.show()
